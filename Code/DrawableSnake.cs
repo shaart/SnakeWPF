@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SnakeWPF.Code
 {
@@ -117,6 +118,136 @@ namespace SnakeWPF.Code
                 animationSpeed,                                  // Speed
                 true,                               // Horizontal animation
                 true);                              // Repeat
+        }
+
+        public Image GetHeadImage()
+        {
+            const double half = 0.5;
+            var rotate = new RotateTransform(0);
+            var snakeHead = new Image();
+            this.HeadSprite.Update();
+            snakeHead.Source = this.HeadSprite.GetRenderedImage();
+            switch (Head.Direction)
+            {
+                case SnakeDirection.UP:
+                    rotate = new RotateTransform(270);
+                    break;
+                case SnakeDirection.RIGHT:
+                    rotate = new RotateTransform(0);
+                    break;
+                case SnakeDirection.DOWN:
+                    rotate = new RotateTransform(90);
+                    break;
+                case SnakeDirection.LEFT:
+                    rotate = new RotateTransform(180);
+                    break;
+                default:
+                    break;
+            }
+            snakeHead.RenderTransform = rotate;
+            snakeHead.RenderTransformOrigin = new System.Windows.Point(half, half);
+
+            return snakeHead;
+        }
+
+        public List<Image> GetBodyImages()
+        {
+            const double half = 0.5;
+            var rotate = new RotateTransform(0);
+            var snakeBody = new List<Image>();
+
+            for (int i = 0; i < BodyLength; i++)
+            {
+                snakeBody.Add(new Image());
+                BodySprite.Update();
+                BodyRotateSprite.Update();
+                switch (BodyPoints[i].Direction)
+                {
+                    case SnakeDirection.UP:
+                        snakeBody[i].Source = BodySprite.GetRenderedImage();
+                        rotate = new RotateTransform(270);
+                        break;
+                    case SnakeDirection.RIGHT:
+                        snakeBody[i].Source = BodySprite.GetRenderedImage();
+                        rotate = new RotateTransform(0);
+                        break;
+                    case SnakeDirection.DOWN:
+                        snakeBody[i].Source = BodySprite.GetRenderedImage();
+                        rotate = new RotateTransform(90);
+                        break;
+                    case SnakeDirection.LEFT:
+                        snakeBody[i].Source = BodySprite.GetRenderedImage();
+                        rotate = new RotateTransform(180);
+                        break;
+                    case SnakeDirection.LEFT_TO_UP:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(180);
+                        break;
+                    case SnakeDirection.LEFT_TO_DOWN:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(270);
+                        break;
+                    case SnakeDirection.RIGHT_TO_UP:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(90);
+                        break;
+                    case SnakeDirection.RIGHT_TO_DOWN:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(0);
+                        break;
+                    case SnakeDirection.UP_TO_LEFT:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(0);
+                        break;
+                    case SnakeDirection.UP_TO_RIGHT:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(270);
+                        break;
+                    case SnakeDirection.DOWN_TO_LEFT:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(90);
+                        break;
+                    case SnakeDirection.DOWN_TO_RIGHT:
+                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
+                        rotate = new RotateTransform(180);
+                        break;
+                    default:
+                        break;
+                }
+                snakeBody[i].RenderTransform = rotate;
+                snakeBody[i].RenderTransformOrigin = new System.Windows.Point(half, half);
+            }
+            return snakeBody;
+        }
+
+        public Image GetTailImage()
+        {
+            const double half = 0.5;
+            var rotate = new RotateTransform(0);
+            var snakeTail = new Image();
+            this.TailSprite.Update();
+            snakeTail.Source = TailSprite.GetRenderedImage();
+            switch (Tail.Direction)
+            {
+                case SnakeDirection.UP:
+                    rotate = new RotateTransform(270);
+                    break;
+                case SnakeDirection.RIGHT:
+                    rotate = new RotateTransform(0);
+                    break;
+                case SnakeDirection.DOWN:
+                    rotate = new RotateTransform(90);
+                    break;
+                case SnakeDirection.LEFT:
+                    rotate = new RotateTransform(180);
+                    break;
+                default:
+                    break;
+            }
+            snakeTail.RenderTransform = rotate;
+            snakeTail.RenderTransformOrigin = new System.Windows.Point(half, half);
+
+            return snakeTail;
         }
 
         public void Update(int dt = 1)

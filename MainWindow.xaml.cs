@@ -235,106 +235,58 @@ namespace SnakeWPF
             GameField.Children.Clear();
             RotateTransform rotate = new RotateTransform(0);
             // Add head
-            snakeHead = new Image();
-            snake.HeadSprite.Update();
-            snakeHead.Source = snake.HeadSprite.GetRenderedImage();
-            switch (snake.Head.Direction)
-            {
-                case SnakeDirection.UP:
-                    rotate = new RotateTransform(270);
-                    break;
-                case SnakeDirection.RIGHT:
-                    rotate = new RotateTransform(0);
-                    break;
-                case SnakeDirection.DOWN:
-                    rotate = new RotateTransform(90);
-                    break;
-                case SnakeDirection.LEFT:
-                    rotate = new RotateTransform(180);
-                    break;
-                default:
-                    break;
-            }
-            snakeHead.RenderTransform = rotate;
+            snakeHead = snake.GetHeadImage();
             Canvas.SetLeft(snakeHead, snake.Head.X);
             Canvas.SetTop(snakeHead, snake.Head.Y);
             GameField.Children.Add(snakeHead);
-
             // Add body
-            snakeBody = new List<Image>();
+            snakeBody = snake.GetBodyImages(); // new List<Image>();
             for (int i = 0; i < snake.BodyLength; i++)
             {
-                snakeBody.Add(new Image());
-                snake.BodySprite.Update();
-                snake.BodyRotateSprite.Update();
-                switch (snake.BodyPoints[i].Direction)
-                {
-                    case SnakeDirection.UP:
-                        snakeBody[i].Source = snake.BodySprite.GetRenderedImage();
-                        rotate = new RotateTransform(270);
-                        break;
-                    case SnakeDirection.RIGHT:
-                        snakeBody[i].Source = snake.BodySprite.GetRenderedImage();
-                        rotate = new RotateTransform(0);
-                        break;
-                    case SnakeDirection.DOWN:
-                        snakeBody[i].Source = snake.BodySprite.GetRenderedImage();
-                        rotate = new RotateTransform(90);
-                        break;
-                    case SnakeDirection.LEFT:
-                        snakeBody[i].Source = snake.BodySprite.GetRenderedImage();
-                        rotate = new RotateTransform(180);
-                        break;
-                    case SnakeDirection.UP_LEFT:
-                        snakeBody[i].Source = snake.BodyRotateSprite.GetRenderedImage();
-                        //rotate = new RotateTransform(0);
-                        break;
-                    case SnakeDirection.UP_RIGHT:
-                        snakeBody[i].Source = snake.BodyRotateSprite.GetRenderedImage();
-                        //rotate = new RotateTransform(90);
-                        break;
-                    case SnakeDirection.DOWN_LEFT:
-                        snakeBody[i].Source = snake.BodyRotateSprite.GetRenderedImage();
-                        //rotate = new RotateTransform(270);
-                        break;
-                    case SnakeDirection.DOWN_RIGHT:
-                        snakeBody[i].Source = snake.BodyRotateSprite.GetRenderedImage();
-                        //rotate = new RotateTransform(180);
-                        break;
-                    default:
-                        break;
-                }
-                snakeBody[i].RenderTransform = rotate;
                 Canvas.SetLeft(snakeBody[i], snake.BodyPoints[i].X);
                 Canvas.SetTop(snakeBody[i], snake.BodyPoints[i].Y);
+                //Ellipse el = new Ellipse();
+                //el.Width = el.Height = 15;
+                //el.StrokeThickness = 2;
+                //el.Stroke = Brushes.Black;
+                //Canvas.SetLeft(el, snake.BodyPoints[i].X);
+                //Canvas.SetTop(el, snake.BodyPoints[i].Y);
+                //GameField.Children.Add(el);
                 GameField.Children.Add(snakeBody[i]);
             }
-
             // Add tail
-            snakeTail = new Image();
-            snake.TailSprite.Update();
-            snakeTail.Source = snake.TailSprite.GetRenderedImage();
-            switch (snake.Tail.Direction)
-            {
-                case SnakeDirection.UP:
-                    rotate = new RotateTransform(270);
-                    break;
-                case SnakeDirection.RIGHT:
-                    rotate = new RotateTransform(0);
-                    break;
-                case SnakeDirection.DOWN:
-                    rotate = new RotateTransform(90);
-                    break;
-                case SnakeDirection.LEFT:
-                    rotate = new RotateTransform(180);
-                    break;
-                default:
-                    break;
-            }
-            snakeTail.RenderTransform = rotate;
+            snakeTail = snake.GetTailImage();// new Image();
             Canvas.SetLeft(snakeTail, snake.Tail.X);
             Canvas.SetTop(snakeTail, snake.Tail.Y);
             GameField.Children.Add(snakeTail);
+            
+            //var debugRotate = new RotateTransform();
+            //var debugBorder = new Rectangle();
+            //debugBorder.Width = debugBorder.Height = 40;
+            //debugBorder.StrokeThickness = 2;
+            //debugBorder.Stroke = Brushes.Black;
+            //Canvas.SetLeft(debugBorder, 100);
+            //Canvas.SetTop(debugBorder, 100);
+            //GameField.Children.Add(debugBorder);
+
+            //var debugImg = new Image();
+            //debugImg.Height = debugImg.Width = 40;
+            //debugImg.Source = new BitmapImage(new Uri("Images\\debug.jpg", UriKind.Relative));
+            //Canvas.SetLeft(debugImg, 100);
+            //Canvas.SetTop(debugImg, 100);
+            ////debugRotate.CenterX = 0.5;
+            ////debugRotate.CenterY = 0.5;
+            //debugRotate.Angle = 180;
+            //debugImg.RenderTransform = debugRotate;
+            //debugImg.RenderTransformOrigin = new Point(0.5, 0.5);
+            //GameField.Children.Add(debugImg);
+
+            //var debugImg2 = new Image();
+            //debugImg2.Height = debugImg2.Width = 20;
+            //debugImg2.Source = new BitmapImage(new Uri("Images\\debug.jpg", UriKind.Relative));
+            //Canvas.SetLeft(debugImg2, 100);
+            //Canvas.SetTop(debugImg2, 100);
+            //GameField.Children.Add(debugImg2);
 
             GameField.UpdateLayout();
         }

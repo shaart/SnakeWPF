@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SnakeWPF.Code
 {
-    public enum SnakeDirection : short { UP, RIGHT, DOWN, LEFT, UP_LEFT, UP_RIGHT,  DOWN_RIGHT, DOWN_LEFT };
+    public enum SnakeDirection : short {
+        UP, RIGHT, DOWN, LEFT,
+        LEFT_TO_UP, LEFT_TO_DOWN,
+        RIGHT_TO_UP, RIGHT_TO_DOWN,
+        UP_TO_LEFT, UP_TO_RIGHT,
+        DOWN_TO_LEFT, DOWN_TO_RIGHT };
 
     class Snake
     {
@@ -57,41 +62,41 @@ namespace SnakeWPF.Code
                     case SnakeDirection.RIGHT:
                         if (tempPoint.Direction == SnakeDirection.UP)
                         {
-                            tempPoint.Direction = SnakeDirection.UP_RIGHT;
+                            tempPoint.Direction = SnakeDirection.RIGHT_TO_UP;
                         }
                         else
                         {
-                            tempPoint.Direction = SnakeDirection.DOWN_RIGHT;
+                            tempPoint.Direction = SnakeDirection.RIGHT_TO_DOWN;
                         }
                         break;
                     case SnakeDirection.DOWN:
                         if (tempPoint.Direction == SnakeDirection.LEFT)
                         {
-                            tempPoint.Direction = SnakeDirection.DOWN_LEFT;
+                            tempPoint.Direction = SnakeDirection.DOWN_TO_LEFT;
                         }
                         else
                         {
-                            tempPoint.Direction = SnakeDirection.DOWN_RIGHT;
+                            tempPoint.Direction = SnakeDirection.DOWN_TO_RIGHT;
                         }
                         break;
                     case SnakeDirection.LEFT:
                         if (tempPoint.Direction == SnakeDirection.UP)
                         {
-                            tempPoint.Direction = SnakeDirection.UP_LEFT;
+                            tempPoint.Direction = SnakeDirection.LEFT_TO_UP;
                         }
                         else
                         {
-                            tempPoint.Direction = SnakeDirection.DOWN_LEFT;
+                            tempPoint.Direction = SnakeDirection.LEFT_TO_DOWN;
                         }
                         break;
                     case SnakeDirection.UP:
                         if (tempPoint.Direction == SnakeDirection.LEFT)
                         {
-                            tempPoint.Direction = SnakeDirection.UP_LEFT;
+                            tempPoint.Direction = SnakeDirection.UP_TO_LEFT;
                         }
                         else
                         {
-                            tempPoint.Direction = SnakeDirection.UP_RIGHT;
+                            tempPoint.Direction = SnakeDirection.UP_TO_RIGHT;
                         }
                         break;
                     default:
@@ -101,10 +106,14 @@ namespace SnakeWPF.Code
             _tail = _body.Last<DirPoint>();             // Tail = last body point
             switch (_tail.Direction)
             {
-                case SnakeDirection.UP_LEFT:
-                case SnakeDirection.UP_RIGHT:
-                case SnakeDirection.DOWN_LEFT:
-                case SnakeDirection.DOWN_RIGHT:
+                case SnakeDirection.UP_TO_LEFT:
+                case SnakeDirection.UP_TO_RIGHT:
+                case SnakeDirection.DOWN_TO_LEFT:
+                case SnakeDirection.DOWN_TO_RIGHT:
+                case SnakeDirection.LEFT_TO_UP:
+                case SnakeDirection.LEFT_TO_DOWN:
+                case SnakeDirection.RIGHT_TO_UP:
+                case SnakeDirection.RIGHT_TO_DOWN:
                     _tail.Direction = _body[_body.Count - 2].Direction; // Pre-last point direction
                     break;
                 default:
