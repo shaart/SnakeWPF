@@ -1,0 +1,17 @@
+﻿<!--
+    Локализация на лету    
+    https://habrahabr.ru/post/256193/ 
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- MAIN WINDOW -->
+    <v:String x:Key="Program_Title">Змейка</v:String>
+    <v:String x:Key="Menu_Play">Играть</v:String>
+    <v:String x:Key="Menu_Options">Настройки</v:String>
+    <v:String x:Key="Menu_Exit">Выход</v:String>
+    
+    <v:String x:Key="Language">Язык</v:String>
+    <v:String x:Key="Game_Score">Очки:</v:String>
+    <v:String x:Key="Game_Time">Время:</v:String>
+</ResourceDictionary>

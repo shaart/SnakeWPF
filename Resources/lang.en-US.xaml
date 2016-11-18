@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- MAIN WINDOW -->
+    <v:String x:Key="Program_Title">Snake</v:String>
+    <v:String x:Key="Menu_Play">Play</v:String>
+    <v:String x:Key="Menu_Options">Options</v:String>
+    <v:String x:Key="Menu_Exit">Exit</v:String>
+    <v:String x:Key="Language">Language</v:String>
+</ResourceDictionary>
