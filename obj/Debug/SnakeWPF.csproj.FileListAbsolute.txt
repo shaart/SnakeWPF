@@ -1,7 +1,6 @@
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\bin\Debug\SnakeWPF.exe.config
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\bin\Debug\SnakeWPF.exe
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\bin\Debug\SnakeWPF.pdb
-F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\SnakeWPF.csprojResolveAssemblyReference.cache
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\Resources\lang.en-US.baml
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\Resources\lang.baml
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\MainWindow.g.cs
@@ -15,3 +14,4 @@ F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\SnakeWPF.Properties.Resources.res
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\SnakeWPF.csproj.GenerateResource.Cache
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\SnakeWPF.exe
 F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\SnakeWPF.pdb
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Debug\SnakeWPF.csprojResolveAssemblyReference.cache

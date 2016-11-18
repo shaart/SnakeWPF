@@ -8,23 +8,11 @@
         Title="{DynamicResource Program_Title}" 
         Height="480" MinHeight="480"
         Width="480" MinWidth="480"
+        Visibility="Visible"
         SizeToContent="WidthAndHeight" KeyDown="GameField_KeyDown">
     <Grid>
-        <!-- == MENU ===================================================================== -->
-        <Grid x:Name="MenuGrid" Visibility="Visible">
-            <ComboBox x:Name="languageList" IsReadOnly="True" IsEditable="True" Text="{DynamicResource Language}" 
-                  Height="30" MinWidth="70" Width="Auto"
-                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                  VerticalAlignment="Top" HorizontalAlignment="Right"
-                  Margin="5"/>
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
-                <Button Content="{DynamicResource Menu_Play}" Click="Menu_Play_Click"/>
-                <Button Content="{DynamicResource Menu_Options}" IsEnabled="False"/>
-                <Button Content="{DynamicResource Menu_Exit}" Click="Menu_Exit_Click"/>
-            </StackPanel>
-        </Grid>
         <!-- == GAME ===================================================================== -->
-        <Grid x:Name="GameGrid" Visibility="Visible">
+        <Grid x:Name="GameGrid" Visibility="Hidden" ClipToBounds="True">
             <Menu VerticalContentAlignment="Center" VerticalAlignment="Top" Background="#FF10722F" Height="18">
                 <MenuItem Header="{DynamicResource Game_Time}" VerticalContentAlignment="Center" Foreground="White"/>
                 <MenuItem x:Name="TimeValue" Header="00:00:00" VerticalContentAlignment="Center" Foreground="White"/>
@@ -33,11 +21,12 @@
                 <MenuItem x:Name="ScoreValue" Header="0" VerticalContentAlignment="Center" Foreground="White"/>
             </Menu>
             <!-- == GAME FIELD ========================================================================= -->
-            <Canvas Margin="0,18,0,0" Visibility="Visible" x:Name="GameField" Width="auto" Height="auto" KeyDown="GameField_KeyDown" Background="#FF239933">
-                <!-- <Polyline x:Name="snake" Points="{Binding snakePoints}" Stroke="White" StrokeThickness="3"/> -->
+            <Canvas ClipToBounds="True" Margin="0,18,0,0" x:Name="GameField" 
+                    Width="auto" Height="auto" 
+                    KeyDown="GameField_KeyDown" Background="#FF239933">
             </Canvas>
             <!-- == DEBUG FIELD ========================================================================= -->
-            <StackPanel Visibility="Visible" Orientation="Vertical" Margin="3,24,3,3" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#BFFFFFFF">
+            <StackPanel Visibility="Collapsed" Orientation="Vertical" Margin="3,24,3,3" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#BFFFFFFF">
                 <Label Content="Debug:"/>
                 <Separator Margin="5,0,15,0"/>
                 <DockPanel>
@@ -56,6 +45,20 @@
                     <Label DockPanel.Dock="Left" Content="Last button:"/>
                     <Label DockPanel.Dock="Right" x:Name="debug_lastButton"/>
                 </DockPanel>
+            </StackPanel>
+        </Grid>
+        <!-- == MENU ===================================================================== -->
+        <Grid x:Name="MenuGrid" Visibility="Visible" Background="LightBlue">
+            <ComboBox x:Name="languageList" IsReadOnly="True" IsEditable="True" Text="{DynamicResource Language}" 
+                  Height="30" MinWidth="70" Width="Auto"
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Margin="5"/>
+            <Label x:Name="MenuStatus" Content="WELCOME!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0, 150"/>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                <Button Content="{DynamicResource Menu_Play}" Click="Menu_Play_Click"/>
+                <Button Content="{DynamicResource Menu_Options}" IsEnabled="False"/>
+                <Button Content="{DynamicResource Menu_Exit}" Click="Menu_Exit_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -25,13 +25,12 @@ namespace SnakeWPF.Code
             int animationSpeed = 1)
         {
             Image img = new Image();
-            //_snake = snake;
             Head = head;
             Tail = tail;
             BodyPoints = body;
             // Head
             _spriteHead = new Sprite(spriteMapUrl,
-                new DirPoint(1, 35),                   // Top left coords
+                new DirPoint(1, 35),                // Top left coords
                 new int[] { 0, 1, 2, 1, 0 },        // Animation
                 new Size(16, 16),                   // Frame size
                 animationSpeed,                     // Speed
@@ -39,14 +38,14 @@ namespace SnakeWPF.Code
                 true);                              // Repeat
             // Body
             _spriteBody = new Sprite(spriteMapUrl,
-                new DirPoint(1, 1),                    // Top left coords
+                new DirPoint(1, 1),                 // Top left coords
                 new int[] { 0, 1, 2, 1, 0 },        // Animation
                 new Size(16, 16),                   // Frame size
                 animationSpeed,                     // Speed
                 true,                               // Horizontal animation
                 true);                              // Repeat
             _spriteBodyRotate = new Sprite(spriteMapUrl,
-                new DirPoint(1, 18),                   // Top left coords
+                new DirPoint(1, 18),                // Top left coords
                 new int[] { 0 },                    // Animation
                 new Size(16, 16),                   // Frame size
                 animationSpeed,                     // Speed
@@ -54,7 +53,7 @@ namespace SnakeWPF.Code
                 false);                             // Repeat
             // Tail
             _spriteTail = new Sprite(spriteMapUrl,
-                new DirPoint(1, 52),                   // Top left coords
+                new DirPoint(1, 52),                // Top left coords
                 new int[] { 0, 1, 2, 1, 0 },        // Animation
                 new Size(16, 16),                   // Frame size
                 animationSpeed,                     // Speed
@@ -89,33 +88,33 @@ namespace SnakeWPF.Code
             BodyPoints = new List<DirPoint>();
             // Head
             _spriteHead = new Sprite(spriteMapUrl,
-                new DirPoint(1, 35),                   // Top left coords
+                new DirPoint(1, 35),                // Top left coords
                 new int[] { 0, 1, 2, 1, 0 },        // Animation
                 new Size(16, 16),                   // Frame size
-                animationSpeed,                                  // Speed
+                animationSpeed,                     // Speed
                 true,                               // Horizontal animation
                 true);                              // Repeat
             // Body
             _spriteBody = new Sprite(spriteMapUrl,
-                new DirPoint(1, 1),                    // Top left coords
+                new DirPoint(1, 1),                 // Top left coords
                 new int[] { 0, 1, 2, 1, 0 },        // Animation
                 new Size(16, 16),                   // Frame size
-                animationSpeed,                                  // Speed
+                animationSpeed,                     // Speed
                 true,                               // Horizontal animation
-                true);                              // Repeat                      // Repeat
+                true);                              // Repeat                      
             _spriteBodyRotate = new Sprite(spriteMapUrl,
-                new DirPoint(1, 18),                   // Top left coords
+                new DirPoint(1, 18),                // Top left coords
                 new int[] { 0 },                    // Animation
                 new Size(16, 16),                   // Frame size
                 animationSpeed,                     // Speed
                 true,                               // Horizontal animation
-                false);                             // Repeat
+                true);                              // Repeat
             // Tail
             _spriteTail = new Sprite(spriteMapUrl,
-                new DirPoint(1, 52),                   // Top left coords
+                new DirPoint(1, 52),                // Top left coords
                 new int[] { 0, 1, 2, 1, 0 },        // Animation
                 new Size(16, 16),                   // Frame size
-                animationSpeed,                                  // Speed
+                animationSpeed,                     // Speed
                 true,                               // Horizontal animation
                 true);                              // Repeat
         }
@@ -179,35 +178,23 @@ namespace SnakeWPF.Code
                         snakeBody[i].Source = BodySprite.GetRenderedImage();
                         rotate = new RotateTransform(180);
                         break;
-                    case SnakeDirection.LEFT_TO_UP:
-                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
-                        rotate = new RotateTransform(180);
-                        break;
-                    case SnakeDirection.LEFT_TO_DOWN:
-                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
-                        rotate = new RotateTransform(270);
-                        break;
-                    case SnakeDirection.RIGHT_TO_UP:
-                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
-                        rotate = new RotateTransform(90);
-                        break;
                     case SnakeDirection.RIGHT_TO_DOWN:
-                        snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
-                        rotate = new RotateTransform(0);
-                        break;
                     case SnakeDirection.UP_TO_LEFT:
                         snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
                         rotate = new RotateTransform(0);
                         break;
                     case SnakeDirection.UP_TO_RIGHT:
+                    case SnakeDirection.LEFT_TO_DOWN:
                         snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
                         rotate = new RotateTransform(270);
                         break;
                     case SnakeDirection.DOWN_TO_LEFT:
+                    case SnakeDirection.RIGHT_TO_UP:
                         snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
                         rotate = new RotateTransform(90);
                         break;
                     case SnakeDirection.DOWN_TO_RIGHT:
+                    case SnakeDirection.LEFT_TO_UP:
                         snakeBody[i].Source = BodyRotateSprite.GetRenderedImage();
                         rotate = new RotateTransform(180);
                         break;

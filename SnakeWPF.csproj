@@ -64,10 +64,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Code\Apple.cs" />
     <Compile Include="Code\DrawableSnake.cs" />
     <Compile Include="Code\GameLogic.cs" />
     <Compile Include="Code\MathConverter.cs" />
-    <Compile Include="Code\Point.cs" />
+    <Compile Include="Code\DirPoint.cs" />
     <Compile Include="Code\Size.cs" />
     <Compile Include="Code\Snake.cs" />
     <Compile Include="Code\Sprite.cs" />

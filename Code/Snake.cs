@@ -15,13 +15,11 @@ namespace SnakeWPF.Code
 
     class Snake
     {
-        //private SnakeDirection _headDirection;
         private DirPoint _head, _tail;
         private List<DirPoint> _body;
 
         public Snake()
         {
-            //_headDirection = SnakeDirection.RIGHT;
             _head = new DirPoint(0, 0);
             _tail = new DirPoint(-1, 0);
             _body = new List<DirPoint>();
@@ -29,7 +27,6 @@ namespace SnakeWPF.Code
 
         public Snake(DirPoint head, DirPoint tail, List<DirPoint> body)
         {
-            //_headDirection = SnakeDirection.RIGHT;
             _head = head;
             _tail = tail;
             _body = body;
@@ -37,7 +34,6 @@ namespace SnakeWPF.Code
 
         public Snake(DirPoint head, DirPoint tail)
         {
-            //_headDirection = SnakeDirection.RIGHT;
             _head = head;
             _tail = tail;
             _body = new List<DirPoint>();
@@ -49,6 +45,17 @@ namespace SnakeWPF.Code
         public List<DirPoint> BodyPoints { get { return _body; } set { _body = value; } }
         public int BodyLength { get { return _body.Count; } }
 
+        public void AddBodyPointToEnd()
+        {
+            // Copy last point
+            var newPoint = new DirPoint();
+            newPoint.X = _body.Last<DirPoint>().X;
+            newPoint.Y = _body.Last<DirPoint>().Y;
+            newPoint.Direction = _body.Last<DirPoint>().Direction;
+            // And add to the end
+            _body.Add(newPoint);
+        }
+
         public void Move(int distance, Size field)
         {
             var tempPoint = new DirPoint();
@@ -59,40 +66,64 @@ namespace SnakeWPF.Code
             {
                 switch (_body[0].Direction)
                 {
+                    case SnakeDirection.UP_TO_RIGHT:
+                    case SnakeDirection.DOWN_TO_RIGHT:
                     case SnakeDirection.RIGHT:
                         if (tempPoint.Direction == SnakeDirection.UP)
                         {
                             tempPoint.Direction = SnakeDirection.RIGHT_TO_UP;
+                        }
+                        else if (tempPoint.Direction == SnakeDirection.RIGHT)
+                        {
+                            tempPoint.Direction = SnakeDirection.RIGHT;
                         }
                         else
                         {
                             tempPoint.Direction = SnakeDirection.RIGHT_TO_DOWN;
                         }
                         break;
+                    case SnakeDirection.LEFT_TO_DOWN:
+                    case SnakeDirection.RIGHT_TO_DOWN:
                     case SnakeDirection.DOWN:
                         if (tempPoint.Direction == SnakeDirection.LEFT)
                         {
                             tempPoint.Direction = SnakeDirection.DOWN_TO_LEFT;
+                        }
+                        else if (tempPoint.Direction == SnakeDirection.DOWN)
+                        {
+                            tempPoint.Direction = SnakeDirection.DOWN;
                         }
                         else
                         {
                             tempPoint.Direction = SnakeDirection.DOWN_TO_RIGHT;
                         }
                         break;
+                    case SnakeDirection.UP_TO_LEFT:
+                    case SnakeDirection.DOWN_TO_LEFT:
                     case SnakeDirection.LEFT:
                         if (tempPoint.Direction == SnakeDirection.UP)
                         {
                             tempPoint.Direction = SnakeDirection.LEFT_TO_UP;
+                        }
+                        else if (tempPoint.Direction == SnakeDirection.LEFT)
+                        {
+                            tempPoint.Direction = SnakeDirection.LEFT;
                         }
                         else
                         {
                             tempPoint.Direction = SnakeDirection.LEFT_TO_DOWN;
                         }
                         break;
+                    case SnakeDirection.LEFT_TO_UP:
+                    case SnakeDirection.RIGHT_TO_UP:
                     case SnakeDirection.UP:
                         if (tempPoint.Direction == SnakeDirection.LEFT)
                         {
                             tempPoint.Direction = SnakeDirection.UP_TO_LEFT;
+                        }
+                        else if (tempPoint.Direction == SnakeDirection.UP)
+                        {
+                            tempPoint.Direction = SnakeDirection.UP;
                         }
                         else
                         {
@@ -156,9 +187,17 @@ namespace SnakeWPF.Code
                     break;
             }
         }
-
-        public void MoveTo(SnakeDirection direction, int distance, Size field)
+        /*
+        /// <summary>
+        /// OLD METHOD
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <param name="distance"></param>
+        /// <param name="field"></param>
+        private void MoveTo(SnakeDirection direction, int distance, Size field)
         {
+            throw new Exception("OLD METHOD");
+
             var tempPoint = new DirPoint();
             tempPoint.X = _head.X;
             tempPoint.Y = _head.Y;
@@ -198,8 +237,9 @@ namespace SnakeWPF.Code
                 default:
                     break;
             }
-            _tail = _body.Last<DirPoint>();        // Tail = last body point
+            _tail = _body.Last<DirPoint>();     // Tail = last body point
             _body.RemoveAt(_body.Count - 1);    // Remove last
         }
+        */
     }
 }
