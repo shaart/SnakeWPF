@@ -56,7 +56,7 @@ namespace SnakeWPF.Code
             _body.Add(newPoint);
         }
 
-        public void Move(int distance, Size field)
+        public void Move(int distance, Size field, Size headSize)
         {
             var tempPoint = new DirPoint();
             tempPoint.X = _head.X;
@@ -145,7 +145,14 @@ namespace SnakeWPF.Code
                 case SnakeDirection.LEFT_TO_DOWN:
                 case SnakeDirection.RIGHT_TO_UP:
                 case SnakeDirection.RIGHT_TO_DOWN:
-                    _tail.Direction = _body[_body.Count - 2].Direction; // Pre-last point direction
+                    if (_body.Count < 2)
+                    {
+                        _tail.Direction = _head.Direction; // Pre-last point direction
+                    }
+                    else
+                    {
+                        _tail.Direction = _body[_body.Count - 2].Direction; // Pre-last point direction
+                    }
                     break;
                 default:
                     break;
@@ -157,30 +164,30 @@ namespace SnakeWPF.Code
             {
                 case SnakeDirection.UP:
                     _head.Y -= distance;
-                    if (_head.Y <= 0)
+                    if (_head.Y - (headSize.Height / 2) < 0)
                     {
-                        _head.Y = field.Height;
+                        _head.Y = field.Height - headSize.Height;
                     }
                     break;
                 case SnakeDirection.RIGHT:
                     _head.X += distance;
-                    if (_head.X >= field.Width)
+                    if (_head.X + (headSize.Width / 2) > field.Width)
                     {
-                        _head.X = 0;
+                        _head.X = (headSize.Width / 2);
                     }
                     break;
                 case SnakeDirection.DOWN:
                     _head.Y += distance;
-                    if (_head.Y >= field.Height)
+                    if (_head.Y + (headSize.Height / 2) > field.Height)
                     {
-                        _head.Y = 0;
+                        _head.Y = headSize.Height / 2;
                     }
                     break;
                 case SnakeDirection.LEFT:
                     _head.X -= distance;
-                    if (_head.X <= 0)
+                    if (_head.X - (headSize.Width / 2) < 0)
                     {
-                        _head.X = field.Width;
+                        _head.X = field.Width - headSize.Width;
                     }
                     break;
                 default:

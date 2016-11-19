@@ -38,6 +38,7 @@ namespace SnakeWPF
         List<Image> snakeBody;
         SnakeWPF.Code.Apple apple;
         Image appleImage;
+        Rectangle fieldBorder;
         
         // Snake moving
         int distance = 16;   // images height&width
@@ -99,7 +100,26 @@ namespace SnakeWPF
         {
             GameGrid.Visibility = Visibility.Visible;
             MenuGrid.Visibility = Visibility.Collapsed;
-            GameArea = new Point(window.Width, window.Height - 18); // 18 - menu place
+            if (GameField.ActualWidth > 0 && GameField.ActualHeight > 0)
+            {
+                GameArea = new Point(GameField.ActualWidth, GameField.ActualHeight);
+            }
+            else if (GameField.Width > 0 && GameField.Height > 0)
+            {
+                GameArea = new Point(GameField.Width, GameField.Height);
+            }
+            else
+            {
+                GameArea = new Point(400, 400); // 18 - menu place
+            }
+
+            //GameArea = new Point(200, 200);
+            fieldBorder = new Rectangle();
+            fieldBorder.Stroke = Brushes.Black;
+            fieldBorder.HorizontalAlignment = HorizontalAlignment.Left;
+            fieldBorder.VerticalAlignment = VerticalAlignment.Top;
+            fieldBorder.Width = GameArea.X;
+            fieldBorder.Height = GameArea.Y;
 
             var tempBody = new List<Code.DirPoint>();
             tempBody.Add(new Code.DirPoint(GameArea.X / 2 - distance, GameArea.Y / 2));
@@ -121,6 +141,7 @@ namespace SnakeWPF
                 (GameArea.X / 2) + 2 * distance,            // X
                 GameArea.Y / 2,                             // Y
                 new Uri(spriteMapPath, UriKind.Relative));  // Sprite map
+
             GameLogic.MakeNewApple(snake, GameArea.X, GameArea.Y, ref apple);
 
             gameTimer = new System.Windows.Threading.DispatcherTimer();
@@ -134,7 +155,7 @@ namespace SnakeWPF
             time = time.Add(timerInterval);
             TimeValue.Header = time.ToString();
             
-            snake.Move(distance, new Code.Size(GameArea.X, GameArea.Y));
+            snake.Move(distance, new Code.Size(GameArea.X, GameArea.Y), snake.HeadSprite.FrameSize);
 
             GameLogic.CheckSnakeCollisions(snake, out _gameOver);
 
@@ -142,6 +163,7 @@ namespace SnakeWPF
             {
                 // Set new apple
                 GameLogic.MakeNewApple(snake, GameArea.X, GameArea.Y, ref apple);
+                ScoreValue.Header = _score.ToString();
                 // Add snake segment
                 snake.AddBodyPointToEnd();
             }
@@ -153,7 +175,7 @@ namespace SnakeWPF
             {
                 gameTimer.Stop();
                 time = new TimeSpan(0, 0, 0);
-                MenuStatus.Content = "GAME OVER. Try again";
+                MenuStatus.Content = "GAME OVER! \n\nYour score: "+ _score.ToString();
                 MenuGrid.Visibility = Visibility.Visible;
                 GameGrid.Visibility = Visibility.Hidden;
             }
@@ -167,6 +189,9 @@ namespace SnakeWPF
         {
             // Clear and redraw objects
             GameField.Children.Clear();
+
+            GameField.Children.Add(fieldBorder);
+
             RotateTransform rotate = new RotateTransform(0);
             // Add head
             snakeHead = snake.GetHeadImage();
@@ -202,28 +227,28 @@ namespace SnakeWPF
             {
                 case Key.W:
                 case Key.Up:
-                    if (snake.Head.Direction != SnakeDirection.DOWN)
+                    if (snake.BodyPoints[0].Direction != SnakeDirection.DOWN)
                     {
                         snake.Head.Direction = SnakeDirection.UP;
                     }
                     break;
                 case Key.S:
                 case Key.Down:
-                    if (snake.Head.Direction != SnakeDirection.UP)
+                    if (snake.BodyPoints[0].Direction != SnakeDirection.UP)
                     {
                         snake.Head.Direction = SnakeDirection.DOWN;
                     }
                     break;
                 case Key.D:
                 case Key.Right:
-                    if (snake.Head.Direction != SnakeDirection.LEFT)
+                    if (snake.BodyPoints[0].Direction != SnakeDirection.LEFT)
                     {
                         snake.Head.Direction = SnakeDirection.RIGHT;
                     }
                     break;
                 case Key.A:
                 case Key.Left:
-                    if (snake.Head.Direction != SnakeDirection.RIGHT)
+                    if (snake.BodyPoints[0].Direction != SnakeDirection.RIGHT)
                     {
                         snake.Head.Direction = SnakeDirection.LEFT;
                     }

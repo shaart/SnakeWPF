@@ -22,7 +22,7 @@
             </Menu>
             <!-- == GAME FIELD ========================================================================= -->
             <Canvas ClipToBounds="True" Margin="0,18,0,0" x:Name="GameField" 
-                    Width="auto" Height="auto" 
+                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                     KeyDown="GameField_KeyDown" Background="#FF239933">
             </Canvas>
             <!-- == DEBUG FIELD ========================================================================= -->

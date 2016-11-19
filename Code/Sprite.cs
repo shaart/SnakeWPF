@@ -114,22 +114,27 @@ namespace SnakeWPF.Code
             bi.BeginInit();
             bi.UriSource = _spritemapPath;
             bi.EndInit();
-            int bytesPerPix = bi.Format.BitsPerPixel / 8;
-            int stride = bi.PixelWidth * bytesPerPix;
+            try
+            {
+                int bytesPerPix = bi.Format.BitsPerPixel / 8;
+                int stride = bi.PixelWidth * bytesPerPix;
 
-            var pixelBuffer = new byte[bi.PixelHeight * stride];
+                var pixelBuffer = new byte[bi.PixelHeight * stride];
 
-            bi.CopyPixels(new System.Windows.Int32Rect(Convert.ToInt32(x), Convert.ToInt32(y),
-                              Convert.ToInt32(_frameSizePix.Width), Convert.ToInt32(_frameSizePix.Height)),
-                          pixelBuffer, stride, 0);
+                bi.CopyPixels(new System.Windows.Int32Rect(Convert.ToInt32(x), Convert.ToInt32(y),
+                                  Convert.ToInt32(_frameSizePix.Width), Convert.ToInt32(_frameSizePix.Height)),
+                              pixelBuffer, stride, 0);
 
-            //bi.SourceRect = new System.Windows.Int32Rect(Convert.ToInt32(x), Convert.ToInt32(y), 
-            //    Convert.ToInt32(_frameSizePix.Width), Convert.ToInt32(_frameSizePix.Height));
-
+                //bi.SourceRect = new System.Windows.Int32Rect(Convert.ToInt32(x), Convert.ToInt32(y), 
+                //    Convert.ToInt32(_frameSizePix.Width), Convert.ToInt32(_frameSizePix.Height));
             var result = BitmapImage.Create(Convert.ToInt32(_frameSizePix.Width), Convert.ToInt32(_frameSizePix.Width),
                 bi.DpiX, bi.DpiY, bi.Format, bi.Palette, pixelBuffer, stride);
-
             return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

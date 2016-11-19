@@ -13,7 +13,7 @@ namespace SnakeWPF.Code
         private Sprite _appleSprite;
         double _x, _y;
 
-        public Sprite AppleSprite { get { return _appleSprite; } }
+        public Sprite Sprite { get { return _appleSprite; } }
         public double X { get { return _x; } set { _x = value; } }
         public double Y { get { return _y; } set { _y = value; } }
 
@@ -24,7 +24,8 @@ namespace SnakeWPF.Code
 
             Image img = new Image();
             _appleSprite = new Sprite(spriteMapUrl,
-                new DirPoint(1, 69),                // Top left coords
+                new DirPoint(1, 1+(1+16)*4),          // Top left coords
+                //new DirPoint(1, 69),              // Top left coords
                 new int[] { 0, 1, 2 },              // Animation
                 new Size(16, 16),                   // Frame size
                 animationSpeed,                     // Speed
@@ -35,8 +36,8 @@ namespace SnakeWPF.Code
         public Image GetImage()
         {
             var appleImage = new Image();
-            AppleSprite.Update();
-            appleImage.Source = AppleSprite.GetRenderedImage();
+            this.Sprite.Update();
+            appleImage.Source = this.Sprite.GetRenderedImage();
 
             return appleImage;
         }

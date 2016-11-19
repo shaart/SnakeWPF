@@ -31,7 +31,11 @@ namespace SnakeWPF.Code
         public static bool IsSnakeAteApple(Snake snake, Apple apple, ref int score, int appleScoreCost = 10)
         {
             bool result = false;
-            if (apple.X == snake.Head.X && apple.Y == snake.Head.Y)
+            //if (apple.X == snake.Head.X && apple.Y == snake.Head.Y)
+                if ((snake.Head.X <= apple.X + (apple.Sprite.FrameSize.Width / 2))
+                && (snake.Head.X >= apple.X - (apple.Sprite.FrameSize.Width / 2))
+                && ((snake.Head.Y <= apple.Y + (apple.Sprite.FrameSize.Height / 2))
+                && (snake.Head.Y >= apple.Y - (apple.Sprite.FrameSize.Height / 2))))
             {
                 result = true;
                 score += appleScoreCost;
@@ -39,16 +43,18 @@ namespace SnakeWPF.Code
             return result;
         }
 
-        public static void MakeNewApple(Snake snake, double areaWidth, double areaHeight, ref Apple apple)
+        public static void MakeNewApple(DrawableSnake snake, double areaWidth, double areaHeight, ref Apple apple)
         {
             Point coords;
             Random rand = new Random();
             bool goodPoint;
+            double fieldHorizCells = areaWidth / snake.HeadSprite.FrameSize.Width;
+            double fieldVertCells = areaHeight / snake.HeadSprite.FrameSize.Height;
             for (;;)
             {
                 coords = new Point(
-                    rand.Next(0, Convert.ToInt32(areaWidth)),   // X
-                    rand.Next(0, Convert.ToInt32(areaHeight))); // Y
+                    rand.Next(0, Convert.ToInt32(fieldHorizCells) - 1) * snake.HeadSprite.FrameSize.Width,     // X
+                    rand.Next(0, Convert.ToInt32(fieldVertCells) - 1) * snake.HeadSprite.FrameSize.Height);    // Y
                 goodPoint = true;
 
                 if ((coords.X == snake.Tail.X && coords.Y == snake.Tail.Y)
