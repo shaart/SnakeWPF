@@ -48,17 +48,28 @@
             </StackPanel>
         </Grid>
         <!-- == MENU ===================================================================== -->
-        <Grid x:Name="MenuGrid" Visibility="Visible" Background="LightBlue">
+        <Grid x:Name="MenuGrid" Visibility="Visible" Background="#FF38788D">
             <ComboBox x:Name="languageList" IsReadOnly="True" IsEditable="True" Text="{DynamicResource Language}" 
                   Height="30" MinWidth="70" Width="Auto"
                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                   VerticalAlignment="Top" HorizontalAlignment="Right"
                   Margin="5"/>
-            <Label x:Name="MenuStatus" Content="WELCOME!" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0, 150"/>
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
-                <Button Content="{DynamicResource Menu_Play}" Click="Menu_Play_Click"/>
-                <Button Content="{DynamicResource Menu_Options}" IsEnabled="False"/>
-                <Button Content="{DynamicResource Menu_Exit}" Click="Menu_Exit_Click"/>
+            <Label x:Name="MenuStatus" Content="{DynamicResource Welcome}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" MaxWidth="{Binding Width, ElementName=window}" Margin="0,0,0, 150" Foreground="White" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <StackPanel Margin="0,40,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                <Button Height="30" Content="{DynamicResource Menu_Play}" Click="Menu_Play_Click" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
+                <!--
+                <Button Content="{DynamicResource Menu_Options}" IsEnabled="False" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
+                -->
+                <Button Height="30" Content="{DynamicResource Menu_Exit}" Click="Menu_Exit_Click" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
             </StackPanel>
         </Grid>
     </Grid>

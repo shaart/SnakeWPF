@@ -1,0 +1,16 @@
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\bin\Release\SnakeWPF.exe.config
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\bin\Release\SnakeWPF.exe
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\bin\Release\SnakeWPF.pdb
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\Resources\lang.en-US.baml
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\Resources\lang.baml
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\MainWindow.g.cs
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\App.g.cs
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\SnakeWPF_MarkupCompile.cache
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\SnakeWPF_MarkupCompile.lref
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\App.baml
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\MainWindow.baml
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\SnakeWPF.g.resources
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\SnakeWPF.Properties.Resources.resources
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\SnakeWPF.csproj.GenerateResource.Cache
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\SnakeWPF.exe
+F:\GitHub\SnakeWPF\SnakeWPF\SnakeWPF\obj\Release\SnakeWPF.pdb

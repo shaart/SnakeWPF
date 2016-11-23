@@ -6,12 +6,22 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:v="clr-namespace:System;assembly=mscorlib">
     <!-- MAIN WINDOW -->
+    <!-- Menu -->
     <v:String x:Key="Program_Title">Змейка</v:String>
+    <v:String x:Key="Welcome">Добро пожаловать!</v:String>
+    <v:String x:Key="Language">Язык</v:String>
     <v:String x:Key="Menu_Play">Играть</v:String>
     <v:String x:Key="Menu_Options">Настройки</v:String>
     <v:String x:Key="Menu_Exit">Выход</v:String>
-    
-    <v:String x:Key="Language">Язык</v:String>
+    <!-- Game -->
     <v:String x:Key="Game_Score">Очки:</v:String>
     <v:String x:Key="Game_Time">Время:</v:String>
+    
+    <!-- IN CODE -->
+    <!-- Error-->
+    <v:String x:Key="StatusError">Что-то пошло не так, ошибка</v:String>
+    <v:String x:Key="Error">Ошибка</v:String>
+    <!-- End of game -->
+    <v:String x:Key="End_of_game">Конец игры</v:String>
+    <v:String x:Key="Your_score">Ваши очки</v:String>
 </ResourceDictionary>

@@ -15,10 +15,10 @@ namespace SnakeWPF.Code
             _height = _width = 0;
         }
 
-        public Size(double height, double width)
+        public Size(double width, double height)
         {
-            _height = height;
             _width = width;
+            _height = height;
         }
 
         public double Height { get { return _height; } set { _height = value; } }

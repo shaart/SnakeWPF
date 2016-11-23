@@ -27,7 +27,7 @@ namespace SnakeWPF
         System.Windows.Threading.DispatcherTimer gameTimer;
         TimeSpan time, timerInterval = new TimeSpan(500000);    // 300 000 = 00:00:00.3
         bool paused = false;
-        bool _gameOver = false;
+        bool _endOfGame = false;
         int _score = 0;
         int _appleScoreCost = 10;
         Point GameArea;
@@ -64,7 +64,7 @@ namespace SnakeWPF
             time = new TimeSpan(0, 0, 0);
 
             // temp
-            Menu_Play_Click(new object(), new RoutedEventArgs());
+            // Menu_Play_Click(new object(), new RoutedEventArgs());
         }
 
         private void LanguageChanged(Object sender, EventArgs e)
@@ -134,7 +134,7 @@ namespace SnakeWPF
                 new Uri(spriteMapPath, UriKind.Relative));                                                  // Sprite map     
 
             paused = false;
-            _gameOver = false;
+            _endOfGame = false;
             _score = 0;
             ScoreValue.Header = "0";
             apple = new Code.Apple(
@@ -153,11 +153,15 @@ namespace SnakeWPF
         private void FrameTick(object sender, EventArgs e)
         {
             time = time.Add(timerInterval);
-            TimeValue.Header = time.ToString();
+            TimeValue.Header = 
+                (time.Hours < 10 ? "0" + time.Hours.ToString() : time.Hours.ToString()) 
+                + ":" + (time.Minutes < 10 ? "0" + time.Minutes.ToString() : time.Minutes.ToString()) 
+                + ":" + (time.Seconds < 10 ? "0" + time.Seconds.ToString() : time.Seconds.ToString()) 
+                + "." + (time.Milliseconds / 100).ToString();
             
             snake.Move(distance, new Code.Size(GameArea.X, GameArea.Y), snake.HeadSprite.FrameSize);
 
-            GameLogic.CheckSnakeCollisions(snake, out _gameOver);
+            GameLogic.CheckSnakeCollisions(snake, out _endOfGame);
 
             if (GameLogic.IsSnakeAteApple(snake, apple, ref _score, _appleScoreCost))
             {
@@ -168,56 +172,72 @@ namespace SnakeWPF
                 snake.AddBodyPointToEnd();
             }
 
-            RedrawObjects();
-
-            // Game over
-            if (_gameOver)
+            try
+            {
+                RedrawObjects();
+            }
+            catch (Exception ex)
             {
                 gameTimer.Stop();
                 time = new TimeSpan(0, 0, 0);
-                MenuStatus.Content = "GAME OVER! \n\nYour score: "+ _score.ToString();
+                MenuStatus.Content = App.Current.Resources["StatusError"].ToString() + "!"; // "Something went wrong, we got error!"
+                MessageBox.Show(ex.Message, App.Current.Resources["Error"].ToString() +"!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                 MenuGrid.Visibility = Visibility.Visible;
                 GameGrid.Visibility = Visibility.Hidden;
             }
-            //debug_snakePointsNum.Content = snake.BodyLength + 2; //snakePoints.Count.ToString();
-            //debug_snakeX.Content = snake.Head.X; //newCoord.X.ToString();
-            //debug_snakeY.Content = snake.Head.Y; //newCoord.Y.ToString();
+            
+            if (_endOfGame)
+            {
+                gameTimer.Stop();
+                time = new TimeSpan(0, 0, 0);
+                MenuStatus.Content = App.Current.Resources["End_of_game"].ToString() + "! \n\n"
+                    + App.Current.Resources["Your_score"].ToString()+ ":"+ _score.ToString();
+                MenuGrid.Visibility = Visibility.Visible;
+                GameGrid.Visibility = Visibility.Hidden;
+            }
         }
 
 
         private void RedrawObjects()
         {
-            // Clear and redraw objects
-            GameField.Children.Clear();
-
-            GameField.Children.Add(fieldBorder);
-
-            RotateTransform rotate = new RotateTransform(0);
-            // Add head
-            snakeHead = snake.GetHeadImage();
-            Canvas.SetLeft(snakeHead, snake.Head.X);
-            Canvas.SetTop(snakeHead, snake.Head.Y);
-            GameField.Children.Add(snakeHead);
-            // Add body
-            snakeBody = snake.GetBodyImages();
-            for (int i = 0; i < snake.BodyLength; i++)
+            try
             {
-                Canvas.SetLeft(snakeBody[i], snake.BodyPoints[i].X);
-                Canvas.SetTop(snakeBody[i], snake.BodyPoints[i].Y);
-                GameField.Children.Add(snakeBody[i]);
-            }
-            // Add tail
-            snakeTail = snake.GetTailImage();
-            Canvas.SetLeft(snakeTail, snake.Tail.X);
-            Canvas.SetTop(snakeTail, snake.Tail.Y);
-            GameField.Children.Add(snakeTail);
-            // Add apple
-            appleImage = apple.GetImage();
-            Canvas.SetLeft(appleImage, apple.X);
-            Canvas.SetTop(appleImage, apple.Y);
-            GameField.Children.Add(appleImage);
+                // Clear and redraw objects
+                GameField.Children.Clear();
 
-            GameField.UpdateLayout();
+                GameField.Children.Add(fieldBorder);
+
+                RotateTransform rotate = new RotateTransform(0);
+                // Add head
+                snakeHead = snake.GetHeadImage();
+                Canvas.SetLeft(snakeHead, snake.Head.X);
+                Canvas.SetTop(snakeHead, snake.Head.Y);
+                GameField.Children.Add(snakeHead);
+                // Add body
+                snakeBody = snake.GetBodyImages();
+                for (int i = 0; i < snake.BodyLength; i++)
+                {
+                    Canvas.SetLeft(snakeBody[i], snake.BodyPoints[i].X);
+                    Canvas.SetTop(snakeBody[i], snake.BodyPoints[i].Y);
+                    GameField.Children.Add(snakeBody[i]);
+                }
+                // Add tail
+                snakeTail = snake.GetTailImage();
+                Canvas.SetLeft(snakeTail, snake.Tail.X);
+                Canvas.SetTop(snakeTail, snake.Tail.Y);
+                GameField.Children.Add(snakeTail);
+                // Add apple
+                appleImage = apple.GetImage();
+                Canvas.SetLeft(appleImage, apple.X);
+                Canvas.SetTop(appleImage, apple.Y);
+                GameField.Children.Add(appleImage);
+
+                GameField.UpdateLayout();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void GameField_KeyDown(object sender, KeyEventArgs e)
@@ -254,6 +274,7 @@ namespace SnakeWPF
                     }
                     break;
                 case Key.P:
+                case Key.Escape:
                     if (paused)
                     {
                         gameTimer.Start();

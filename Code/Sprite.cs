@@ -100,7 +100,7 @@ namespace SnakeWPF.Code
 
             var x = _framePosition.X;
             var y = _framePosition.Y;
-            // Why +1 and +frameIndex? Map have borders: 1pix border, 16pix frame [1|16|1|16|1] 
+            // Why +frameIndex? Map have borders: 1pix border, 16pix frame [1|16|1|16|1] 
             if (_isHorizDir)
             {
                 x += frameIndex * _frameSizePix.Width + frameIndex; 

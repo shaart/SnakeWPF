@@ -134,27 +134,36 @@ namespace SnakeWPF.Code
                         break;
                 }
             }
-            _tail = _body.Last<DirPoint>();             // Tail = last body point
+            _tail = _body.Last<DirPoint>(); // Tail = last body point
             switch (_tail.Direction)
             {
                 case SnakeDirection.UP_TO_LEFT:
-                case SnakeDirection.UP_TO_RIGHT:
                 case SnakeDirection.DOWN_TO_LEFT:
+                    _tail.Direction = SnakeDirection.LEFT;                  // Pre-last point direction
+                    break;
+                case SnakeDirection.UP_TO_RIGHT:
                 case SnakeDirection.DOWN_TO_RIGHT:
-                case SnakeDirection.LEFT_TO_UP:
-                case SnakeDirection.LEFT_TO_DOWN:
+                    _tail.Direction = SnakeDirection.RIGHT;                  // Pre-last point direction
+                    break;
                 case SnakeDirection.RIGHT_TO_UP:
+                case SnakeDirection.LEFT_TO_UP:
+                    _tail.Direction = SnakeDirection.UP;
+                    break;
+                case SnakeDirection.LEFT_TO_DOWN:
                 case SnakeDirection.RIGHT_TO_DOWN:
+                    _tail.Direction = SnakeDirection.DOWN;
+                    break;
+                default:      
+                    /*              
                     if (_body.Count < 2)
                     {
-                        _tail.Direction = _head.Direction; // Pre-last point direction
+                        _tail.Direction = _head.Direction;                  // Pre-last point direction
                     }
                     else
                     {
                         _tail.Direction = _body[_body.Count - 2].Direction; // Pre-last point direction
-                    }
-                    break;
-                default:
+                    }      
+                    */              
                     break;
             }
             _body.RemoveAt(_body.Count - 1);            // Remove last
@@ -164,79 +173,28 @@ namespace SnakeWPF.Code
             {
                 case SnakeDirection.UP:
                     _head.Y -= distance;
-                    if (_head.Y - (headSize.Height / 2) < 0)
-                    {
-                        _head.Y = field.Height - headSize.Height;
-                    }
-                    break;
-                case SnakeDirection.RIGHT:
-                    _head.X += distance;
-                    if (_head.X + (headSize.Width / 2) > field.Width)
-                    {
-                        _head.X = (headSize.Width / 2);
-                    }
-                    break;
-                case SnakeDirection.DOWN:
-                    _head.Y += distance;
-                    if (_head.Y + (headSize.Height / 2) > field.Height)
-                    {
-                        _head.Y = headSize.Height / 2;
-                    }
-                    break;
-                case SnakeDirection.LEFT:
-                    _head.X -= distance;
-                    if (_head.X - (headSize.Width / 2) < 0)
-                    {
-                        _head.X = field.Width - headSize.Width;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        /*
-        /// <summary>
-        /// OLD METHOD
-        /// </summary>
-        /// <param name="direction"></param>
-        /// <param name="distance"></param>
-        /// <param name="field"></param>
-        private void MoveTo(SnakeDirection direction, int distance, Size field)
-        {
-            throw new Exception("OLD METHOD");
-
-            var tempPoint = new DirPoint();
-            tempPoint.X = _head.X;
-            tempPoint.Y = _head.Y;
-            tempPoint.Direction = _head.Direction;
-            _body.Insert(0, tempPoint);             // Old head position = first body point
-            // Make new head
-            switch (direction)
-            {
-                case SnakeDirection.UP:
-                    _head.Y -= distance;
-                    if (_head.Y <= 0)
+                    if (_head.Y < 0)
                     {
                         _head.Y = field.Height;
                     }
                     break;
                 case SnakeDirection.RIGHT:
                     _head.X += distance;
-                    if (_head.X >= field.Width)
+                    if (_head.X > field.Width)
                     {
                         _head.X = 0;
                     }
                     break;
                 case SnakeDirection.DOWN:
                     _head.Y += distance;
-                    if (_head.Y >= field.Height)
+                    if (_head.Y > field.Height) 
                     {
                         _head.Y = 0;
                     }
                     break;
                 case SnakeDirection.LEFT:
                     _head.X -= distance;
-                    if (_head.X <= 0)
+                    if (_head.X < 0)
                     {
                         _head.X = field.Width;
                     }
@@ -244,9 +202,6 @@ namespace SnakeWPF.Code
                 default:
                     break;
             }
-            _tail = _body.Last<DirPoint>();     // Tail = last body point
-            _body.RemoveAt(_body.Count - 1);    // Remove last
         }
-        */
     }
 }
